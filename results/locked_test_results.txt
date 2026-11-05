@@ -1,0 +1,97 @@
+============================================================================== 
+STEP 6 - FINAL | scored target years 2022-2024 | 2026-11-04 13:41
+amr_core sha256[:12]: 229157d37b43 | step6 sha256[:12]: 5ebb38e44084
+PRE-REGISTERED PREDICTIONS:
+   P1: pooled gradient boosting will NOT beat persistence at horizons >= 3 (macro relative error >= 1.00).
+   P2: SES will be within +/-2% of persistence at horizons >= 3 (macro relative error between 0.98 and 1.02).
+   P3: scaled conformal intervals (method C) will again reach coverage within 0.03 of nominal with interval-score ratio C/A < 1.
+==============================================================================
+series: 676 | scored rows: 9303 | origins 2017 - 2023
+scored rows with all methods: 9303 | rows at h>=3: 5572 | combos in metric: 25
+
+PRIMARY METRIC - macro relative error vs persistence (1.00 = same; <1 better)
+          h=1    h=2    h=3    h=4    h=5   h>=3
+drift   1.141  1.248  1.321  1.412  1.506  1.420
+damped  1.101  1.142  1.150  1.167  1.177  1.166
+ses     1.006  1.012  1.009  1.002  1.007  1.005
+EN      0.990  1.049  1.070  1.095  1.122  1.097
+GB      0.965  0.979  1.002  1.018  1.048  1.024
+
+pooled MAE (percentage points):
+   persist  drift  damped   ses    EN    GB
+h                                          
+1     2.30   2.62    2.53  2.31  2.22  2.20
+2     2.77   3.50    3.18  2.83  2.79  2.69
+3     3.30   4.34    3.76  3.37  3.38  3.26
+4     3.74   5.20    4.28  3.81  3.91  3.75
+5     4.21   6.13    4.82  4.29  4.39  4.20
+
+GATE (h>=3):
+  GB: rel.err 1.024 [0.979, 1.075] | best baseline ses 1.005; model vs best [0.972, 1.068] -> G1 FAIL G2 FAIL G3 FAIL
+  EN: rel.err 1.097 [1.046, 1.157] | best baseline ses 1.005; model vs best [1.045, 1.151] -> G1 FAIL G2 FAIL G3 FAIL
+  SES vs persistence: 1.005 [0.985, 1.023]
+
+SECONDARY METRIC (excluding near-zero combos defined from 2005-2018): ['Escherichia coli|Carbapenems']
+  drift   1.412 [1.339, 1.508]
+  damped  1.159 [1.119, 1.210]
+  ses     1.015 [0.991, 1.033]
+  EN      1.038 [0.988, 1.093]
+  GB      0.994 [0.941, 1.044]
+
+GB beats persistence in 12 of 25 combos; SES in 8 of 25
+
+by target year (h>=3), GB / SES relative error:
+  2022: GB 1.080 | SES 1.005 | n=1871
+  2023: GB 1.021 | SES 1.004 | n=1813
+  2024: GB 0.973 | SES 1.008 | n=1888
+
+PREDICTION CHECK:  P1 CONFIRMED (GB 1.024) | P2 CONFIRMED (SES 1.005)
+GATE VERDICT: NOT PASSED (GB)
+
+INTERVAL EVALUATION (centre = ses, FINAL 2022-2024) - rows scored: 9303
+                    coverage  mean_width  mean_IS
+alpha method                                     
+0.1   A_unscaled       0.893      14.587   26.252
+      B_volatility     0.899      15.627   21.784
+      C_learned        0.899      12.216   19.913
+0.2   A_unscaled       0.793       9.175   19.894
+      B_volatility     0.798      10.898   16.897
+      C_learned        0.799       8.928   16.016
+
+coverage by horizon:
+h                       1      2      3      4      5
+alpha method                                         
+0.1   A_unscaled    0.898  0.905  0.897  0.890  0.877
+      B_volatility  0.910  0.925  0.912  0.886  0.860
+      C_learned     0.904  0.921  0.910  0.893  0.868
+0.2   A_unscaled    0.810  0.812  0.782  0.781  0.780
+      B_volatility  0.817  0.839  0.812  0.780  0.743
+      C_learned     0.808  0.829  0.804  0.794  0.758
+
+coverage by level group (y at origin):
+level_group           <5%  5-30%   >30%
+alpha method                           
+0.1   A_unscaled    0.994  0.909  0.759
+      B_volatility  0.951  0.881  0.879
+      C_learned     0.950  0.889  0.865
+0.2   A_unscaled    0.976  0.797  0.593
+      B_volatility  0.899  0.765  0.757
+      C_learned     0.905  0.778  0.726
+
+mean width by level group:
+level_group          <5%  5-30%   >30%
+alpha method                          
+0.1   A_unscaled    9.91  16.20  16.39
+      B_volatility  4.29  15.97  26.86
+      C_learned     3.80  12.80  19.92
+0.2   A_unscaled    6.63  10.11  10.05
+      B_volatility  3.11  11.21  18.49
+      C_learned     2.90   9.32  14.49
+
+H5 check, nominal 90%: C_learned coverage 0.899 (target 0.90 +/- 0.03); interval-score ratio C/A = 0.759 [0.716, 0.803]
+
+H5 check, nominal 80%: C_learned coverage 0.799 (target 0.80 +/- 0.03); interval-score ratio C/A = 0.805 [0.773, 0.841]
+H5 VERDICT: SUPPORTED (needs both levels: coverage within 0.03 AND ratio interval upper bound < 1)
+(P3 is confirmed if the H5 VERDICT above is SUPPORTED)
+
+LOCKED TEST COMPLETE. Do not re-run or change methods. Report everything above, including refuted predictions.
