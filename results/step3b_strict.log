@@ -1,0 +1,74 @@
+============================================================================== 
+RUN: eligibility = registered
+==============================================================================
+series: 676 | scored rows before dropping: 9423
+scored rows with BOTH models fitted (identical rows for every method): 9423 | dropped: 0
+h
+1    1908
+2    1898
+3    1893
+4    1880
+5    1844
+combos in the metric (fixed): 25
+
+relative error vs persistence (strict real-time training); 1.00 = same, <1 better
+          h=1    h=2    h=3    h=4    h=5   h>=3
+drift   1.117  1.229  1.364  1.506  1.680  1.526
+damped  1.084  1.133  1.183  1.229  1.287  1.236
+ses     0.983  0.986  0.985  0.994  0.995  0.991
+EN      1.023  1.058  1.094  1.120  1.145  1.121
+GB      0.982  1.009  1.049  1.085  1.112  1.083
+
+pooled MAE (percentage points):
+   persist  drift  damped   ses    EN    GB
+h                                          
+1     2.41   2.68    2.59  2.42  2.42  2.36
+2     2.99   3.63    3.36  3.00  3.04  2.98
+3     3.40   4.41    3.87  3.39  3.45  3.41
+4     3.82   5.37    4.45  3.83  3.87  3.85
+5     4.14   6.53    5.08  4.12  4.28  4.22
+
+GATE (GB, h>=3, 5617 forecasts): rel.err 1.083 [1.031, 1.135] | best baseline ses 0.991; model vs best [1.048, 1.142]
+  G1 FAIL | G2 FAIL | G3 FAIL -> NOT PASSED
+
+GATE (EN, h>=3, 5617 forecasts): rel.err 1.121 [1.063, 1.201] | best baseline ses 0.991; model vs best [1.076, 1.210]
+  G1 FAIL | G2 FAIL | G3 FAIL -> NOT PASSED
+
+SES vs persistence (h>=3) interval: (np.float64(0.967), np.float64(1.012))
+============================================================================== 
+RUN: eligibility = origin_only
+==============================================================================
+series: 798 | scored rows before dropping: 10454
+scored rows with BOTH models fitted (identical rows for every method): 10454 | dropped: 0
+h
+1    2213
+2    2180
+3    2139
+4    2022
+5    1900
+combos in the metric (fixed): 29
+
+relative error vs persistence (strict real-time training); 1.00 = same, <1 better
+          h=1    h=2    h=3    h=4    h=5   h>=3
+drift   1.101  1.193  1.321  1.463  1.621  1.469
+damped  1.070  1.109  1.157  1.206  1.250  1.206
+ses     0.990  0.991  0.981  0.997  0.996  0.990
+EN      1.026  1.062  1.095  1.122  1.169  1.125
+GB      0.987  1.015  1.049  1.092  1.138  1.090
+
+pooled MAE (percentage points):
+   persist  drift  damped   ses    EN    GB
+h                                          
+1     2.80   3.06    2.98  2.82  2.85  2.77
+2     3.46   4.06    3.79  3.48  3.59  3.50
+3     3.87   4.88    4.32  3.83  4.01  3.94
+4     4.17   5.78    4.81  4.17  4.29  4.26
+5     4.27   6.69    5.20  4.25  4.47  4.41
+
+GATE (GB, h>=3, 6061 forecasts): rel.err 1.090 [1.051, 1.134] | best baseline ses 0.990; model vs best [1.059, 1.147]
+  G1 FAIL | G2 FAIL | G3 FAIL -> NOT PASSED
+
+GATE (EN, h>=3, 6061 forecasts): rel.err 1.125 [1.071, 1.197] | best baseline ses 0.990; model vs best [1.087, 1.209]
+  G1 FAIL | G2 FAIL | G3 FAIL -> NOT PASSED
+
+SES vs persistence (h>=3) interval: (np.float64(0.968), np.float64(1.012))

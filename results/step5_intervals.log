@@ -1,0 +1,92 @@
+STEP 5 - interval calibration, validation years | amr_core sha: 229157d37b43
+series: 676 | rows: 28234 | scored rows: 9423
+
+INTERVAL EVALUATION (centre = ses, validation 2019-2021) - rows scored: 8198
+                    coverage  mean_width  mean_IS
+alpha method                                     
+0.1   A_unscaled       0.891      13.699   25.617
+      B_volatility     0.873      14.575   21.845
+      C_learned        0.880      11.777   20.196
+0.2   A_unscaled       0.797       8.847   19.098
+      B_volatility     0.754      10.045   17.050
+      C_learned        0.772       8.622   16.062
+
+coverage by horizon:
+h                       1      2      3      4      5
+alpha method                                         
+0.1   A_unscaled    0.897  0.891  0.887  0.886  0.895
+      B_volatility  0.897  0.869  0.857  0.869  0.874
+      C_learned     0.893  0.878  0.870  0.878  0.887
+0.2   A_unscaled    0.797  0.785  0.799  0.804  0.805
+      B_volatility  0.787  0.753  0.731  0.746  0.746
+      C_learned     0.788  0.772  0.754  0.762  0.801
+
+coverage by level group (y at origin):
+level_group           <5%  5-30%   >30%
+alpha method                           
+0.1   A_unscaled    0.988  0.920  0.737
+      B_volatility  0.941  0.872  0.806
+      C_learned     0.945  0.892  0.792
+0.2   A_unscaled    0.974  0.817  0.578
+      B_volatility  0.879  0.738  0.655
+      C_learned     0.898  0.775  0.636
+
+mean width by level group:
+level_group          <5%  5-30%   >30%
+alpha method                          
+0.1   A_unscaled    9.40  15.15  15.38
+      B_volatility  4.30  15.65  23.04
+      C_learned     3.88  12.51  18.44
+0.2   A_unscaled    6.44   9.69   9.73
+      B_volatility  3.08  10.86  15.62
+      C_learned     2.96   9.13  13.44
+
+H5 check, nominal 90%: C_learned coverage 0.880 (target 0.90 +/- 0.03); interval-score ratio C/A = 0.788 [0.740, 0.835]
+
+H5 check, nominal 80%: C_learned coverage 0.772 (target 0.80 +/- 0.03); interval-score ratio C/A = 0.841 [0.807, 0.873]
+H5 VERDICT: SUPPORTED (needs both levels: coverage within 0.03 AND ratio interval upper bound < 1)
+
+INTERVAL EVALUATION (centre = persist, validation 2019-2021) - rows scored: 8198
+                    coverage  mean_width  mean_IS
+alpha method                                     
+0.1   A_unscaled       0.892      13.614   25.354
+      B_volatility     0.872      14.374   21.796
+      C_learned        0.880      11.724   20.123
+0.2   A_unscaled       0.796       8.920   18.924
+      B_volatility     0.754      10.007   16.945
+      C_learned        0.778       8.690   15.961
+
+coverage by horizon:
+h                       1      2      3      4      5
+alpha method                                         
+0.1   A_unscaled    0.895  0.893  0.890  0.893  0.890
+      B_volatility  0.894  0.869  0.862  0.864  0.868
+      C_learned     0.888  0.884  0.863  0.878  0.898
+0.2   A_unscaled    0.790  0.784  0.797  0.810  0.801
+      B_volatility  0.791  0.749  0.727  0.751  0.742
+      C_learned     0.794  0.770  0.761  0.774  0.821
+
+coverage by level group (y at origin):
+level_group           <5%  5-30%   >30%
+alpha method                           
+0.1   A_unscaled    0.990  0.922  0.737
+      B_volatility  0.938  0.873  0.802
+      C_learned     0.946  0.894  0.787
+0.2   A_unscaled    0.972  0.821  0.570
+      B_volatility  0.873  0.739  0.658
+      C_learned     0.897  0.782  0.651
+
+mean width by level group:
+level_group          <5%  5-30%   >30%
+alpha method                          
+0.1   A_unscaled    9.25  15.10  15.31
+      B_volatility  4.13  15.42  22.84
+      C_learned     3.80  12.46  18.40
+0.2   A_unscaled    6.42   9.81   9.82
+      B_volatility  2.96  10.84  15.62
+      C_learned     2.93   9.22  13.57
+
+H5 check, nominal 90%: C_learned coverage 0.880 (target 0.90 +/- 0.03); interval-score ratio C/A = 0.794 [0.744, 0.840]
+
+H5 check, nominal 80%: C_learned coverage 0.778 (target 0.80 +/- 0.03); interval-score ratio C/A = 0.843 [0.813, 0.876]
+H5 VERDICT: SUPPORTED (needs both levels: coverage within 0.03 AND ratio interval upper bound < 1)

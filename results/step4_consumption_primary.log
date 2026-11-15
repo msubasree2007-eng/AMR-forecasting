@@ -1,0 +1,23 @@
+eligible countries: 23 | series used: 379 | combos: 18 | training+scored rows: 14161 | scored rows: 5343
+scored rows (identical for all methods): 5343 | rows at h>=3: 3169 | combos in metric: 18
+
+relative error vs persistence (1.00 = same, <1 better)
+              h=1    h=2    h=3    h=4    h=5   h>=3
+ses         0.963  0.965  0.989  1.017  1.011  1.005
+gb_without  0.980  1.047  1.111  1.213  1.262  1.198
+gb_with     0.979  1.036  1.111  1.197  1.250  1.189
+
+pooled MAE (pp):
+   persist   ses  gb_without  gb_with
+h                                    
+1     2.32  2.26        2.26     2.25
+2     2.76  2.71        2.84     2.82
+3     3.08  3.06        3.24     3.24
+4     3.40  3.43        3.73     3.69
+5     3.70  3.68        4.18     4.13
+
+H4 test (h>=3, 3169 forecasts): with/without ratio = 0.992  95% interval [0.984, 1.001]
+  gb_with vs persistence = 1.189 [1.131, 1.265]
+  VERDICT H4: NOT SUPPORTED
+  (information only) h=1: with/without = 0.999
+  (information only) h=2: with/without = 0.989

@@ -1,0 +1,37 @@
+scored rows: 9423 | h>=3: 5617 | combos: 25
+
+(1) ABLATION OF dev_cm (strict real-time, registered series, h>=3): relative error vs persistence
+  GB_full      1.083  [1.031, 1.135]
+  GB_no_devcm  1.087  [1.046, 1.129]
+  without/with dev_cm ratio: 1.004 (np.float64(0.991), np.float64(1.019))
+
+(2) PER-COMBINATION BREAKDOWN, h>=3 (relative error vs persistence; <1 = better than persistence)
+                                                                                                                          combo   n  countries  persist_MAE  GB_rel  SES_rel
+                                                                                    Enterococcus faecalis|High-level gentamicin 193         23         8.63   0.877    1.093
+                                                                                         Pseudomonas aeruginosa|Aminoglycosides 189         24         4.10   0.913    0.979
+                                                                                        Pseudomonas aeruginosa|Fluoroquinolones 204         25         3.74   0.935    0.886
+                                                                                             Pseudomonas aeruginosa|Carbapenems 204         25         3.57   0.949    0.966
+                                                                                        Staphylococcus aureus|Meticillin (MRSA) 263         30         3.71   0.955    1.022
+                                                                                         Klebsiella pneumoniae|Fluoroquinolones 251         29         5.57   0.967    1.007
+Pseudomonas aeruginosa|Combined resistance (at least three of piperac. and tazob., fluoroq., ceftaz., aminogl. and carbapenems) 187         23         3.25   0.986    0.868
+                                                                                     Enterococcus faecium|High-level gentamicin 169         20        12.11   0.991    1.017
+                                                                                            Streptococcus pneumoniae|Macrolides 188         23         2.57   0.994    0.947
+                                                                                          Klebsiella pneumoniae|Aminoglycosides 245         28         5.23   1.003    1.010
+                                                                                         Enterococcus faecalis|Aminopenicillins 222         27         1.46   1.005    1.017
+                                                                                  Pseudomonas aeruginosa|PiperacillinTazobactam 202         24         4.13   1.005    0.930
+                Klebsiella pneumoniae|Combined resistance (third-generation cephalosporin, fluoroquinolones and aminoglycoside) 245         28         5.05   1.005    1.016
+                                                                          Klebsiella pneumoniae|Third-generation cephalosporins 251         29         5.17   1.007    1.035
+                                                                                              Escherichia coli|Fluoroquinolones 263         30         3.71   1.022    1.003
+                                                                                          Enterococcus faecium|Aminopenicillins 190         22         2.59   1.022    0.976
+                                                                                              Klebsiella pneumoniae|Carbapenems 248         29         3.94   1.033    1.012
+                                                                                             Pseudomonas aeruginosa|Ceftazidime 201         24         2.71   1.047    0.923
+                                                                                              Escherichia coli|Aminopenicillins 248         29         3.68   1.052    0.973
+                                                                                               Escherichia coli|Aminoglycosides 263         30         2.10   1.077    0.979
+                                                                                                Enterococcus faecium|Vancomycin 190         22         6.03   1.108    1.014
+                     Escherichia coli|Combined resistance (third-generation cephalosporin, fluoroquinolones and aminoglycoside) 263         30         1.75   1.139    0.991
+                                                                                               Enterococcus faecalis|Vancomycin 224         26         0.70   1.165    1.126
+                                                                               Escherichia coli|Third-generation cephalosporins 263         30         2.16   1.308    1.014
+                                                                                                   Escherichia coli|Carbapenems 251         29         0.14   4.541    1.003
+
+  GB beats persistence in 9 of 25 combos; SES in 11 of 25
+  correlation of persistence MAE (series noisiness) with GB_rel: -0.36 | with SES_rel: 0.17

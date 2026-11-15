@@ -1,0 +1,46 @@
+PRE-REGISTERED GATE
+ data: years 2005-2021 only | train: target year <= 2018 | scored: target year 2019-2021
+ series: >= 8 observed years in 2005-2018; N tested >= 30; origin needs 5 consecutive observed years
+ metric: per pathogen-drug combo, model MAE / persistence MAE, geometric mean over combos (combos need >= 15 scored forecasts)
+ G1: relative error at horizons >= 3 is <= 0.95
+ G2: 95% country-cluster bootstrap interval for that relative error has upper bound < 1.0
+ G3: beats persistence-free trend baselines (drift, damped drift, SES) AND interval vs best baseline has upper bound < 1.0
+ PASS = G1 and G2 and G3 (otherwise: report as benchmark / forecastability study) 
+
+eligible series: 679 | combos: 25 | countries: 30
+training rows: 18811 | validation (scored) rows: 9423 | validation series: 667
+
+MODEL SELECTION (rolling-origin CV on target years 2015-2018, training years only; horizons >= 3)
+  EN: relative error vs persistence = 1.011
+  GB: relative error vs persistence = 0.969
+  -> gate model (lower CV error): GB
+
+VALIDATION (target years 2019-2021): relative error vs persistence (1.00 = same; <1 better)
+          h=1    h=2   h>=3    h=3    h=4    h=5
+drift   1.117  1.229  1.526  1.364  1.506  1.680
+damped  1.084  1.133  1.236  1.183  1.229  1.287
+ses     0.983  0.986  0.991  0.985  0.994  0.995
+EN      1.032  1.058  1.072  1.071  1.084  1.063
+GB      0.985  0.998  1.040  1.031  1.041  1.049
+
+Pooled MAE (percentage points) by horizon:
+    persist  drift  damped   ses    EN    GB
+h                                          
+1     2.41   2.68    2.59  2.42  2.44  2.37
+2     2.99   3.63    3.36  3.00  3.03  2.96
+3     3.40   4.41    3.87  3.39  3.40  3.35
+4     3.82   5.37    4.45  3.83  3.77  3.74
+5     4.14   6.53    5.08  4.12  4.01  3.99
+
+GATE on GB, horizons >= 3 (5617 forecasts):
+  relative error vs persistence: 1.040  95% interval [0.990, 1.090]
+  best trend baseline: ses (0.991) | model vs best baseline interval [1.003, 1.099]
+  G1 (<= 0.95): FAIL | G2 (upper bound < 1): FAIL | G3 (beats all trend baselines): FAIL
+
+  VERDICT: GATE NOT PASSED - report as benchmark / forecastability study
+
+For information only (not part of the gate): by target year, relative error of GB
+  2019: 0.964  (n=1906)
+  2020: 1.072  (n=1850)
+  2021: 1.088  (n=1861)
+  combos where GB beats persistence (h>=3): 15 of 25

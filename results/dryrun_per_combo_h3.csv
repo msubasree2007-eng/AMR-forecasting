@@ -1,0 +1,26 @@
+combo,n,persist_MAE,GB_rel,SES_rel
+Enterococcus faecalis|High-level gentamicin,193,8.63,0.877,1.093
+Pseudomonas aeruginosa|Aminoglycosides,189,4.1,0.913,0.979
+Pseudomonas aeruginosa|Fluoroquinolones,204,3.74,0.935,0.886
+Pseudomonas aeruginosa|Carbapenems,204,3.57,0.949,0.966
+Staphylococcus aureus|Meticillin (MRSA),263,3.71,0.955,1.022
+Klebsiella pneumoniae|Fluoroquinolones,251,5.57,0.967,1.007
+"Pseudomonas aeruginosa|Combined resistance (at least three of piperac. and tazob., fluoroq., ceftaz., aminogl. and carbapenems)",187,3.25,0.986,0.868
+Enterococcus faecium|High-level gentamicin,169,12.11,0.991,1.017
+Streptococcus pneumoniae|Macrolides,188,2.57,0.994,0.947
+Klebsiella pneumoniae|Aminoglycosides,245,5.23,1.003,1.01
+Enterococcus faecalis|Aminopenicillins,222,1.46,1.005,1.017
+Pseudomonas aeruginosa|PiperacillinTazobactam,202,4.13,1.005,0.93
+"Klebsiella pneumoniae|Combined resistance (third-generation cephalosporin, fluoroquinolones and aminoglycoside)",245,5.05,1.005,1.016
+Klebsiella pneumoniae|Third-generation cephalosporins,251,5.17,1.007,1.035
+Escherichia coli|Fluoroquinolones,263,3.71,1.022,1.003
+Enterococcus faecium|Aminopenicillins,190,2.59,1.022,0.976
+Klebsiella pneumoniae|Carbapenems,248,3.94,1.033,1.012
+Pseudomonas aeruginosa|Ceftazidime,201,2.71,1.047,0.923
+Escherichia coli|Aminopenicillins,248,3.68,1.052,0.973
+Escherichia coli|Aminoglycosides,263,2.1,1.077,0.979
+Enterococcus faecium|Vancomycin,190,6.03,1.108,1.014
+"Escherichia coli|Combined resistance (third-generation cephalosporin, fluoroquinolones and aminoglycoside)",263,1.75,1.139,0.991
+Enterococcus faecalis|Vancomycin,224,0.7,1.165,1.126
+Escherichia coli|Third-generation cephalosporins,263,2.16,1.308,1.014
+Escherichia coli|Carbapenems,251,0.14,4.541,1.003

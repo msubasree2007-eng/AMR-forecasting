@@ -1,0 +1,13 @@
+combos all/excluding near-zero E. coli carbapenems: 25 24
+
+h>=3 relative error vs persistence [95% interval]
+  drift   all 1.526 | excluding E.coli-carbapenems 1.502 [1.436, 1.582]
+  damped  all 1.236 | excluding E.coli-carbapenems 1.221 [1.182, 1.270]
+  ses     all 0.991 | excluding E.coli-carbapenems 0.990 [0.965, 1.012]
+  EN      all 1.121 | excluding E.coli-carbapenems 1.026 [0.977, 1.093]
+  GB      all 1.083 | excluding E.coli-carbapenems 1.020 [0.971, 1.061]
+
+GATE on sensitivity set (GB): G1 FAIL (1.020) | G2 FAIL (upper 1.064) | G3 FAIL (best baseline ses 0.990; vs best [0.986, 1.073])
+
+pooled MAE at h>=3 (pp): {'persist': np.float64(3.78), 'ses': np.float64(3.78), 'EN': np.float64(3.86), 'GB': np.float64(3.82)}
+median per-combo GB ratio: 1.005 | arithmetic mean: 1.164

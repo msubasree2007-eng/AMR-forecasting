@@ -1,0 +1,97 @@
+============================================================================== 
+STEP 6 - DRY-RUN | scored target years 2019-2021 | 2026-11-11 17:10
+amr_core sha256[:12]: 229157d37b43 | step6 sha256[:12]: 5ebb38e44084
+PRE-REGISTERED PREDICTIONS:
+   P1: pooled gradient boosting will NOT beat persistence at horizons >= 3 (macro relative error >= 1.00).
+   P2: SES will be within +/-2% of persistence at horizons >= 3 (macro relative error between 0.98 and 1.02).
+   P3: scaled conformal intervals (method C) will again reach coverage within 0.03 of nominal with interval-score ratio C/A < 1.
+==============================================================================
+series: 676 | scored rows: 9423 | origins 2014 - 2020
+scored rows with all methods: 9423 | rows at h>=3: 5617 | combos in metric: 25
+
+PRIMARY METRIC - macro relative error vs persistence (1.00 = same; <1 better)
+          h=1    h=2    h=3    h=4    h=5   h>=3
+drift   1.117  1.229  1.364  1.506  1.680  1.526
+damped  1.084  1.133  1.183  1.229  1.287  1.236
+ses     0.983  0.986  0.985  0.994  0.995  0.991
+EN      1.023  1.058  1.094  1.120  1.145  1.121
+GB      0.982  1.009  1.049  1.085  1.112  1.083
+
+pooled MAE (percentage points):
+   persist  drift  damped   ses    EN    GB
+h                                          
+1     2.41   2.68    2.59  2.42  2.42  2.36
+2     2.99   3.63    3.36  3.00  3.04  2.98
+3     3.40   4.41    3.87  3.39  3.45  3.41
+4     3.82   5.37    4.45  3.83  3.87  3.85
+5     4.14   6.53    5.08  4.12  4.28  4.22
+
+GATE (h>=3):
+  GB: rel.err 1.083 [1.031, 1.135] | best baseline ses 0.991; model vs best [1.048, 1.142] -> G1 FAIL G2 FAIL G3 FAIL
+  EN: rel.err 1.121 [1.063, 1.201] | best baseline ses 0.991; model vs best [1.076, 1.210] -> G1 FAIL G2 FAIL G3 FAIL
+  SES vs persistence: 0.991 [0.967, 1.012]
+
+SECONDARY METRIC (excluding near-zero combos defined from 2005-2018): ['Escherichia coli|Carbapenems']
+  drift   1.502 [1.433, 1.584]
+  damped  1.221 [1.181, 1.269]
+  ses     0.990 [0.964, 1.013]
+  EN      1.026 [0.976, 1.085]
+  GB      1.020 [0.969, 1.065]
+
+GB beats persistence in 9 of 25 combos; SES in 11 of 25
+
+by target year (h>=3), GB / SES relative error:
+  2019: GB 1.033 | SES 0.972 | n=1906
+  2020: GB 1.111 | SES 1.014 | n=1850
+  2021: GB 1.104 | SES 0.980 | n=1861
+
+PREDICTION CHECK:  P1 CONFIRMED (GB 1.083) | P2 CONFIRMED (SES 0.991)
+GATE VERDICT: NOT PASSED (GB)
+
+INTERVAL EVALUATION (centre = ses, DRY-RUN 2019-2021) - rows scored: 8198
+                    coverage  mean_width  mean_IS
+alpha method                                     
+0.1   A_unscaled       0.891      13.699   25.617
+      B_volatility     0.873      14.575   21.845
+      C_learned        0.880      11.777   20.196
+0.2   A_unscaled       0.797       8.847   19.098
+      B_volatility     0.754      10.045   17.050
+      C_learned        0.772       8.622   16.062
+
+coverage by horizon:
+h                       1      2      3      4      5
+alpha method                                         
+0.1   A_unscaled    0.897  0.891  0.887  0.886  0.895
+      B_volatility  0.897  0.869  0.857  0.869  0.874
+      C_learned     0.893  0.878  0.870  0.878  0.887
+0.2   A_unscaled    0.797  0.785  0.799  0.804  0.805
+      B_volatility  0.787  0.753  0.731  0.746  0.746
+      C_learned     0.788  0.772  0.754  0.762  0.801
+
+coverage by level group (y at origin):
+level_group           <5%  5-30%   >30%
+alpha method                           
+0.1   A_unscaled    0.988  0.920  0.737
+      B_volatility  0.941  0.872  0.806
+      C_learned     0.945  0.892  0.792
+0.2   A_unscaled    0.974  0.817  0.578
+      B_volatility  0.879  0.738  0.655
+      C_learned     0.898  0.775  0.636
+
+mean width by level group:
+level_group          <5%  5-30%   >30%
+alpha method                          
+0.1   A_unscaled    9.40  15.15  15.38
+      B_volatility  4.30  15.65  23.04
+      C_learned     3.88  12.51  18.44
+0.2   A_unscaled    6.44   9.69   9.73
+      B_volatility  3.08  10.86  15.62
+      C_learned     2.96   9.13  13.44
+
+H5 check, nominal 90%: C_learned coverage 0.880 (target 0.90 +/- 0.03); interval-score ratio C/A = 0.788 [0.736, 0.835]
+
+H5 check, nominal 80%: C_learned coverage 0.772 (target 0.80 +/- 0.03); interval-score ratio C/A = 0.841 [0.804, 0.873]
+H5 VERDICT: SUPPORTED (needs both levels: coverage within 0.03 AND ratio interval upper bound < 1)
+(P3 is confirmed if the H5 VERDICT above is SUPPORTED)
+
+DRY RUN COMPLETE (validation years). The code works; now freeze the files and run --final once.
