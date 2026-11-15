@@ -1,142 +1,105 @@
-# Forecasting National Antimicrobial Resistance
+# Forecasting national antimicrobial resistance from ECDC EARS-Net data
 
-## Project Overview
+Code and results for the manuscript "Forecasting national antimicrobial resistance: a strictly time
+ordered benchmark against persistence in European surveillance 
+data" (Subasree M).
 
-This project investigates whether machine learning, genomic features, and antimicrobial consumption data can improve the forecasting of national antimicrobial resistance (AMR) trends compared with conventional statistical baselines.
+- Archive (Zenodo): https://doi.org/10.5281/zenodo.24192332
+- Repository: https://github.com/msubasree2007-eng/AMR-forecasting
 
-The study uses a strictly time-ordered forecasting framework to evaluate predictive performance and reduce the risk of temporal data leakage.
+## What this repository contains
 
-The primary analysis uses national antimicrobial resistance surveillance data from the **European Centre for Disease Prevention and Control (ECDC) – EARS-Net**.
+Strict real-time evaluation of persistence, drift, damped drift, simple
+exponential smoothing (SES), Elastic Net and gradient boosting for national
+resistance forecasts (horizons 1–5 years), a pre-specified gate, a locked test
+on 2022–2024, a consumption case study (H4), a genomic case study (H3) and
+split-conformal prediction intervals (H5).
 
-## Research Objectives
+Splits: training 2005–2018, validation 2019–2021, locked test 2022–2024.
+A model forecasting from origin O uses only outcomes with target year ≤ O.
 
-1. Evaluate national AMR forecasting performance against persistence and other statistical baselines.
-2. Compare machine-learning approaches, including Elastic Net and Gradient Boosting, with conventional forecasting methods.
-3. Assess the robustness of results under alternative eligibility criteria.
-4. Investigate whether antimicrobial consumption data provide additional predictive information.
-5. Evaluate forecast uncertainty using prediction intervals.
+## Folder structure
 
-## Data Sources
-
-The project uses data from the following sources:
-
-- **ECDC – EARS-Net:** National antimicrobial resistance surveillance data.
-- **ESAC-Net:** Antimicrobial consumption surveillance data.
-- **NCBI Pathogen Detection:** Genomic surveillance information used in the exploratory genomic analysis.
-
-The raw datasets are not included in this repository. Users should obtain the data from the respective official sources and comply with their access and reuse conditions.
-
-## Repository Structure
-
-```text
-AMR-forecasting/
-│
-├── analysis and forecasting scripts/
-│   ├── amr_core.py
-│   ├── step2_eda.py
-│   ├── step3_gate.py
-│   ├── step3b_strict_origin.py
-│   ├── step3c_robustness.py
-│   ├── step3d_nearzero.py
-│   ├── step4_consumption_test.py
-│   ├── step5_intervals.py
-│   └── step6_locked_test.py
-│
-├── results/
-│   ├── step3b_validation_results.txt
-│   ├── step6_locked_test_results.txt
-│   └── intervals_validation_ses.csv
-│
-└── README.md
+```
+analysis and forecasting scripts/
+  amr_core.py                 shared functions (data prep, models, evaluation)
+  step2_eda.py                exploratory analysis
+  step3_gate.py               gate on the original evaluation
+  step3b_strict_origin.py     strict real-time re-evaluation (validation)
+  step3c_robustness.py        robustness checks
+  step3d_nearzero.py          sensitivity to the E. coli carbapenems series
+  step4_consumption_test.py   H4: antibiotic consumption features
+  step5_intervals.py          H5: conformal intervals (validation)
+  step6_locked_test.py        locked test 2022–2024
+results/
+  LOCKED_TEST_DONE.txt            marker file written by step6
+  locked_point_forecasts.csv      locked-test point forecasts
+  locked_per_combo_h3.csv         locked-test per-combination results, h>=3
+  locked_intervals.csv            locked-test prediction intervals
+  step3b_validation_results.txt   output of step3b
+  step6_locked_test_results.txt   output of step6
+  intervals_validation_ses.csv    validation intervals (SES-centred)
+  dryrun_*.csv                    dry-run outputs on validation data
+  *.log, environment.txt          run logs and software versions
 ```
 
-## Analysis Workflow
+## Data
 
-| Script | Purpose |
-|---|---|
-| `amr_core.py` | Shared functions used by the analysis scripts. |
-| `step2_eda.py` | Exploratory data analysis and initial data assessment. |
-| `step3_gate.py` | Initial forecasting benchmark and validation gate. |
-| `step3b_strict_origin.py` | Strict real-time validation with origin-specific training. |
-| `step3c_robustness.py` | Robustness analysis. |
-| `step3d_nearzero.py` | Sensitivity analysis for near-zero resistance values. |
-| `step4_consumption_test.py` | Evaluation of antimicrobial consumption features. |
-| `step5_intervals.py` | Forecast interval evaluation. |
-| `step6_locked_test.py` | Final locked-test evaluation. |
+Data are not redistributed here. Download them from the original sources:
 
-## Temporal Evaluation Design
+- ECDC Surveillance Atlas of Infectious Diseases (EARS-Net): indicator
+  "R - resistant isolates, percentage".
+- ESAC-Net antimicrobial consumption data.
+- Genomic panel: NCBI Pathogen Detection isolate exports for K. pneumoniae (136,299 isolates; AMRFinderPlus gene calls, collection date, location, isolation source).
 
-The forecasting framework separates the analysis into three periods:
+Put the ECDC file in the folder you run from (or pass its path as the first
+argument):
+python step3b_strict_origin.py ECDC_surveillance_data_Antimicrobial_resistance__1_.csv
 
-| Period | Years | Purpose |
-|---|---|---|
-| Training | 2005–2018 | Model development and training |
-| Validation | 2019–2021 | Model evaluation and validation |
-| Locked test | 2022–2024 | Final out-of-sample evaluation |
+step4_consumption_test.py takes the ESAC file as the second argument
+(default: ESAC_Net_consumption_clean_v2.csv, the cleaned file used in the
+paper).
+## How to run
 
-The strict real-time validation procedure ensures that each forecast model is trained only using outcomes available at the corresponding forecast origin.
+```
+pip install -r requirements.txt
+python "analysis and forecasting scripts/step3b_strict_origin.py"
+```
 
-The locked-test evaluation is kept separate from the validation stage.
+Run the steps in numerical order. `step6_locked_test.py` reads the locked
+2022–2024 years; do not run it again while developing models.
 
-## Forecasting Methods
+## Locked test: execution history
 
-The benchmark includes:
+step6_locked_test.py was intended as a single final evaluation but was
+executed more than once (on or about 31 Oct, 4 Nov and 9 Nov 2026). Google
+Colab sessions are ephemeral, so the guard file LOCKED_TEST_DONE.txt did not
+persist between sessions. The outputs of the runs compared were identical, no
+model or setting was changed between runs, and the reported numbers come from
+the files in `results/`.
 
-- Persistence
-- Drift
-- Damped trend
-- Simple Exponential Smoothing (SES)
-- Elastic Net
-- Gradient Boosting
+## Integrity check
 
-Model performance is evaluated using forecast errors and relative error against the persistence baseline.
+```
+sha256sum "analysis and forecasting scripts/amr_core.py"
+sha256sum "analysis and forecasting scripts/step6_locked_test.py"
+```
 
-A relative error below 1 indicates improvement over persistence, while a value above 1 indicates worse performance.
+Expected hashes begin with:
+- amr_core.py: 229157d37b43
+- step6_locked_test.py: 5ebb38e44084
 
-## Main Findings
+## Scope note
 
-The validation analysis did not demonstrate consistent improvement from machine-learning models over conventional forecasting baselines.
+H4 (consumption) was evaluated on the validation years 2019–2021 only and was
+not repeated on the locked test.
 
-Simple Exponential Smoothing remained competitive with persistence across the evaluated forecast horizons.
+# Environment
 
-The findings highlight the importance of strict temporal validation and baseline comparisons when assessing national AMR forecasting models.
+Python 3.10; scikit-learn 1.8.0; see requirements.txt and
+results/environment.txt.
 
-## Reproducibility
+## Licence and citation
 
-The Python scripts are provided to document the analysis workflow.
-
-To reproduce the analysis:
-
-1. Obtain the required surveillance datasets from their official sources.
-2. Prepare the input files using the expected column structure and filenames.
-3. Install the required Python dependencies.
-4. Execute the scripts in the appropriate analysis order.
-5. Keep validation and locked-test evaluations separate.
-
-Some scripts depend on shared functions in `amr_core.py` and other scripts in the repository. Run them from the same project directory.
-
-**Important:** The locked-test script is designed for a single final evaluation after the analysis pipeline has been frozen. Do not rerun it casually.
-
-## Software
-
-The analysis was developed in Python using Google Colab.
-
-Core libraries include:
-
-- NumPy
-- pandas
-- scikit-learn
-
-Additional dependencies should be installed as required by individual scripts.
-
-## Research Scope and Limitations
-
-This project evaluates the forecastability of national AMR surveillance trends. It does not claim that machine learning universally outperforms conventional forecasting methods.
-
-Results should be interpreted in the context of surveillance data availability, temporal coverage, country-level reporting differences, and the limitations of genomic and antimicrobial consumption data.
-
-## Project Status
-
-Research code and analysis outputs are being organized for reproducibility and academic review.
-
-Further documentation, dependency specifications, and data preparation instructions may be updated as the project progresses.
+Code: [MIT, see LICENSE]. If you use this work, cite the
+Zenodo archive above (see CITATION.cff).
