@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this code or results, please cite it using the metadata below."
+title: "AMR-forecasting: code and results for real-time forecasting of national antimicrobial resistance from ECDC EARS-Net data"
+type: software
+authors:
+  - family-names: "M"
+    given-names: "Subasree"
+version: "1.0.0"
+date-released: "2026-11-11"
+doi: "10.5281/zenodo.24192332"
+repository-code: "https://github.com/msubasree2007-eng/AMR-forecasting"
+license: MIT
+keywords:
+  - antimicrobial resistance
+  - forecasting
+  - EARS-Net
+  - conformal prediction
+  - machine learning
